@@ -5,6 +5,8 @@ import { DatabaseModule } from './database/database.module';
 import { ConfigModule } from '@nestjs/config';
 import { configuration } from './config/configuration';
 import { LogsMiddleware } from './common/middlewares/logs.middleware';
+import { DevicesModule } from './devices/devices.module';
+import { HistoriesModule } from './histories/histories.module';
 
 const VALID_ENV = ['local', 'development', 'production'];
 
@@ -19,7 +21,9 @@ const environment = process.env.NODE_ENV ?? 'local';
       isGlobal: true,
       load: [configuration],
     }),
-    DatabaseModule
+    DatabaseModule,
+    DevicesModule,
+    HistoriesModule
   ],
   controllers: [AppController],
   providers: [AppService],

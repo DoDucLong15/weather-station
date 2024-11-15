@@ -2,7 +2,7 @@ import { config } from 'dotenv';
 import { ConfigService } from '@nestjs/config';
 import { DataSource } from 'typeorm';
 import * as fs from 'fs';
-import { configuration } from 'src/config/configuration';
+import { configuration } from './src/config/configuration';
 
 const VALID_ENV = ['local', 'development', 'production'];
 const environment = process.env.NODE_ENV ?? 'local';
