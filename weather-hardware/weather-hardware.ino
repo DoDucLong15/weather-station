@@ -3,6 +3,8 @@
 #include <DHT.h>
 #include <RTClib.h>
 
+const char* embedId = "1fe78b11-37d2-4d03-a1b0-b70ab2219e6c";
+
 // Replace with your WiFi credentials and MQTT broker details
 const char* ssid = "Duc Long";
 const char* password = "0378334905";
@@ -93,7 +95,8 @@ void sendSensor() // function to read sensor values and send them to Blynk
                  + formatTwoDigits(now.second());
   String message = "\{\"temperature\": " + String(temperature) 
                   + ", \"humidity\": " + String(humidity)
-                   + ", \"time\": \"" + time + "\"}";
+                  + ", \"time\": \"" + time + "\""
+                  + ", \"embedId\": \"" + embedId + "\"}";
   char buffer[message.length() + 1];
   message.toCharArray(buffer, message.length() + 1);
   client.publish(topic, buffer);
