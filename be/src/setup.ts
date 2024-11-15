@@ -10,7 +10,7 @@ export function setup(app: INestApplication): INestApplication {
 
   const config = new DocumentBuilder()
     .setTitle('Task-system api')
-    .setDescription('The task-system API description')
+    .setDescription('The weather-system API description')
     .addBearerAuth()
     .setVersion('1.0')
     .build();
