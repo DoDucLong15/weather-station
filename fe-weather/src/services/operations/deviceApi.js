@@ -10,7 +10,7 @@ const {
   CREATE_DEVICE
 } = deviceEndpoints;
 
-export async function getAllDevices() {
+export function getAllDevices() {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
@@ -29,7 +29,7 @@ export async function getAllDevices() {
   }
 }
 
-export async function createDevice(data) {
+export function createDevice(data, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
@@ -40,6 +40,7 @@ export async function createDevice(data) {
       }
       toast.success('Create device success!');
       dispatch(addDevice(response.data));
+      navigate('/devices')
     } catch (error) {
       toast.error('Create device failed!');
     }
@@ -48,17 +49,18 @@ export async function createDevice(data) {
   }
 }
 
-export async function updateDevice(data) {
+export function updateDevice(data, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-      const response = await apiConnector("PATCH", CREATE_DEVICE, data);
+      const response = await apiConnector("PATCH", UPDATE_DEVICE, data);
       if(!response.data) {
         throw new Error('Update device failed!');
       }
       toast.success('Update device success!');
       dispatch(editDevice(response.data));
+      navigate('/devices')
     } catch (error) {
       toast.error('Update device failed!');
     }
@@ -67,7 +69,7 @@ export async function updateDevice(data) {
   }
 }
 
-export async function deleteDevice(id) {
+export function deleteDevice(id) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));

@@ -4,6 +4,9 @@ import { HiArrowNarrowUp } from "react-icons/hi";
 import { Routes, useLocation, Route } from "react-router-dom";
 import Navbar from "./components/common/Navbar";
 import Home from "./pages/Home";
+import DevicesHome from "./pages/devices/Devices";
+import AddDevice from "./pages/devices/AddDevice";
+import EditDevice from "./pages/devices/EditDevice";
 
 function App() {
   const location = useLocation();
@@ -34,7 +37,7 @@ function App() {
   }, [showArrow])
 
   return (
-    <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
+    <div className="w-screen min-h-screen flex flex-col font-inter">
       <Navbar />
 
       {/* go upward arrow */}
@@ -45,6 +48,9 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/devices" element={<DevicesHome />} />
+        <Route path="/add-device" element={<AddDevice />} />
+        <Route path="/edit-device/:id" element={<EditDevice />} />
       </Routes>
     </div>
   )

@@ -10,7 +10,7 @@ const deviceSlice = createSlice({
   initialState: initialState,
   reducers: {
     removeDevice(state, value) {
-      state.devices = state.devices.filter((device) => device.id !== value.payload.id);
+      state.devices = state.devices.filter((device) => device.id !== value.payload);
     },
     addDevice(state, value) {
       state.devices = [...state.devices, value.payload];
