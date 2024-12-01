@@ -1,16 +1,23 @@
 import { IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, ValidateNested } from "class-validator";
 import { DeviceLocationType } from "../types/location-device.type";
 import { PartialType } from "@nestjs/mapped-types";
-import { Type } from "class-transformer";
+import { Transform, Type } from "class-transformer";
+import { transformToNumber } from "src/common/transforms/transform";
 
 export class DeviceLocationDto {
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
+  @Transform(transformToNumber)
   longitude: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
+  @Transform(transformToNumber)
   latitude: number;
+
+  @IsOptional()
+  @IsString()
+  name: string;
 }
 
 export class CreateDeviceDto {
@@ -32,5 +39,6 @@ export class CreateDeviceDto {
 export class UpdateDeviceDto extends PartialType(CreateDeviceDto) {
   @IsNotEmpty()
   @IsNumber()
+  @Transform(transformToNumber)
   id: number;
 }
