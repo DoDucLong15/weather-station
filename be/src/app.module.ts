@@ -7,6 +7,7 @@ import { configuration } from './config/configuration';
 import { LogsMiddleware } from './common/middlewares/logs.middleware';
 import { DevicesModule } from './devices/devices.module';
 import { HistoriesModule } from './histories/histories.module';
+import { MqttModule } from './mqtt/mqtt.module';
 
 const VALID_ENV = ['local', 'development', 'production'];
 
@@ -23,7 +24,8 @@ const environment = process.env.NODE_ENV ?? 'local';
     }),
     DatabaseModule,
     DevicesModule,
-    HistoriesModule
+    HistoriesModule,
+    MqttModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,0 +1,1 @@
+export const WEATHER_TOPIC = 'ddlong07/iot/weather';
