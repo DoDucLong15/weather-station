@@ -7,3 +7,7 @@ export const deviceEndpoints = {
   DELETE_DEVICE: BASE_URL + "/devices",
   CREATE_DEVICE: BASE_URL + "/devices",
 }
+
+export const historyEndpoints = {
+  DASHBOARD: BASE_URL + "/histories/dashboard"
+}

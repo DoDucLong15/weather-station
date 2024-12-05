@@ -1,9 +1,10 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { deleteDevice } from "../../services/operations/deviceApi";
 
 const DeviceList = () => {
+  const navigate = useNavigate();
   const {devices} = useSelector((state) => state.device)
   const [listDevice, setListDevice] = useState([]);
   const dispatch = useDispatch();
@@ -19,8 +20,8 @@ const DeviceList = () => {
     dispatch(deleteDevice(id));
   }
 
-  const handleOnClick = () => {
-    console.log('Click ...');
+  const handleOnClick = (id) => {
+    navigate(`/dashboard?id=${id}`)
   }
 
   return (
@@ -28,7 +29,7 @@ const DeviceList = () => {
       {
         listDevice.map((device) => (
           <div className="flex items-center bg-gray-100 mb-10 shadow" key={device.id}>
-            <button onClick={() => handleOnClick()}>
+            <button onClick={() => handleOnClick(device.id)}>
               <div className="flex-auto text-left px-4 py-2 m-2">
                 <p className="text-gray-900 leading-none">{device?.deviceName}</p>
                 <p className="text-gray-600">{device?.embedId}</p>

@@ -29,6 +29,21 @@ export function getAllDevices() {
   }
 }
 
+export async function getDevices() {
+  try {
+    const response = await apiConnector("GET", GET_DEVICES);
+    if(!response.data) {
+      throw new Error('Get All Devices failed!');
+    }
+    if(!response.data) {
+      throw new Error('Get All Devices failed!');
+    }
+    return response.data;
+  } catch (error) {
+    return [];
+  }
+}
+
 export function createDevice(data, navigate) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
