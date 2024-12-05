@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import DevicesHome from "./pages/devices/Devices";
 import AddDevice from "./pages/devices/AddDevice";
 import EditDevice from "./pages/devices/EditDevice";
+import Dashboard from "./pages/dashboard/Dashboard";
 
 function App() {
   const location = useLocation();
@@ -51,6 +52,8 @@ function App() {
         <Route path="/devices" element={<DevicesHome />} />
         <Route path="/add-device" element={<AddDevice />} />
         <Route path="/edit-device/:id" element={<EditDevice />} />
+
+        <Route path="/dashboard" element={<Dashboard />} /> 
       </Routes>
     </div>
   )
