@@ -92,6 +92,20 @@ const Dashboard = () => {
         {weather && weather.data && weather.data?.temperature && (
           <Forecast weather={weather} />
         )}
+
+        {!weather.error &&
+          !weather.missingId &&
+          !weather.loading &&
+          !weather?.data?.temperature &&
+          !weather?.data?.humidity && (
+            <>
+              <br />
+              <br />
+              <span className="block text-center text-[#f06789] text-[30px] font-bold mt-auto">
+                <span style={{ fontFamily: "font" }}>No Data.</span>
+              </span>
+            </>
+          )}
       </div>
     </div>
   );
