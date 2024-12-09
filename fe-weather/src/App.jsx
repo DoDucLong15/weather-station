@@ -8,6 +8,7 @@ import DevicesHome from "./pages/devices/Devices";
 import AddDevice from "./pages/devices/AddDevice";
 import EditDevice from "./pages/devices/EditDevice";
 import Dashboard from "./pages/dashboard/Dashboard";
+import Analytic from "./pages/analytics/Analytic";
 
 function App() {
   const location = useLocation();
@@ -54,6 +55,8 @@ function App() {
         <Route path="/edit-device/:id" element={<EditDevice />} />
 
         <Route path="/dashboard" element={<Dashboard />} /> 
+
+        <Route path="/analytic" element={<Analytic />} />
       </Routes>
     </div>
   )

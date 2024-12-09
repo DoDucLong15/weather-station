@@ -18,8 +18,8 @@ const Dashboard = () => {
 
   useEffect(() => {
     if (query) {
-      setWeather({ ...weather, missingId: false });
-    } else setWeather({ ...weather, missingId: true });
+      setWeather(weather => ({ ...weather, missingId: false }));
+    } else setWeather(weather => ({ ...weather, missingId: true }));
   }, [query]);
 
   const search = async (event) => {
