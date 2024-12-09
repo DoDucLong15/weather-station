@@ -11,4 +11,8 @@ export const NavbarLinks = [
     title: "Dashboard",
     path: "/dashboard",
   },
+  {
+    title: "Analytic",
+    path: "/analytic",
+  }
 ];

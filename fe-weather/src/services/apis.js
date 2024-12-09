@@ -9,5 +9,6 @@ export const deviceEndpoints = {
 }
 
 export const historyEndpoints = {
-  DASHBOARD: BASE_URL + "/histories/dashboard"
+  DASHBOARD: BASE_URL + "/histories/dashboard",
+  ANALYTICS: BASE_URL + "/histories/analytics"
 }
