@@ -1,4 +1,4 @@
-import { IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, ValidateNested } from "class-validator";
+import { IsArray, IsNotEmpty, IsNumber, IsObject, IsOptional, IsString, ValidateNested } from "class-validator";
 import { DeviceLocationType } from "../types/location-device.type";
 import { PartialType } from "@nestjs/mapped-types";
 import { Transform, Type } from "class-transformer";
@@ -34,6 +34,11 @@ export class CreateDeviceDto {
   @ValidateNested()
   @Type(() => DeviceLocationDto)
   location: DeviceLocationDto;
+
+  @IsOptional()
+  @IsArray()
+  @IsString({each: true})
+  sharedMails: string[];
 }
 
 export class UpdateDeviceDto extends PartialType(CreateDeviceDto) {
