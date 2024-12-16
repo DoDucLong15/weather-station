@@ -14,12 +14,25 @@ export class HistoriesService {
   ){}
 
   public async getDashboard(query: DashboardFilter): Promise<any> {
+    const subquery = this.repository.createQueryBuilder()
+      .select('*')
+      .where('SPLIT_PART(time, \' \', 1) = :today', { today: DateUtils.getTodayWithTimezone() }) 
+      .andWhere('device_id = :deviceId', { deviceId: query.deviceId })
+      .orderBy('time', 'DESC') 
+      .limit(120); 
+
     const data = await this.repository.createQueryBuilder()
-      .select('AVG(temperature)', 'avgTemperature')
-      .addSelect('AVG(humidity)', 'avgHumidity')
-      .where('SPLIT_PART(time, \' \', 1) = :today', { today: DateUtils.getTodayWithTimezone() })
-      .andWhere('device_id = :deviceId', {deviceId: query.deviceId})
-      .getRawOne()
+      .select('AVG(sub.temperature)', 'avgTemperature') 
+      .addSelect('AVG(sub.humidity)', 'avgHumidity') 
+      .from(`(${subquery.getQuery()})`, 'sub') 
+      .setParameters(subquery.getParameters()) 
+      .getRawOne();
+    // const data = await this.repository.createQueryBuilder()
+    //   .select('AVG(temperature)', 'avgTemperature')
+    //   .addSelect('AVG(humidity)', 'avgHumidity')
+    //   .where('SPLIT_PART(time, \' \', 1) = :today', { today: DateUtils.getTodayWithTimezone() })
+    //   .andWhere('device_id = :deviceId', {deviceId: query.deviceId})
+    //   .getRawOne()
     return {
       date: DateUtils.getTodayWithTimezone(),
       temperature: data.avgTemperature,
