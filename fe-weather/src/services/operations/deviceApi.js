@@ -112,3 +112,26 @@ export function deleteDevice(id, token) {
     dispatch(setLoading(false))
   }
 }
+
+export function sharedDevice(id, sharedMails, token) {
+  return async (dispatch) => {
+    const toastId = toast.loading("Loading...");
+    dispatch(setLoading(true));
+    try {
+      const response = await apiConnector("PATCH", UPDATE_DEVICE, {
+        id,
+        sharedMails
+      }, {
+        Authorization: `Bearer ${token}`,
+      });
+      if(!response.data) {
+        throw new Error('Update shared device failed!');
+      }
+      toast.success('Update shared device success!');
+    } catch (error) {
+      toast.error('Update shared device failed!');
+    }
+    toast.dismiss(toastId)
+    dispatch(setLoading(false))
+  }
+}

@@ -23,10 +23,11 @@ export default function ProfileDropdown() {
   return (
     <button className="relative hidden sm:flex" onClick={() => setOpen(true)}>
       <div className="flex items-center gap-x-1">
+        <p>{`${user?.firstName} ${user?.lastName}`}</p>
         <Img
           src={user?.image}
           alt={`profile-${user?.firstName}`}
-          className={'aspect-square w-[30px] rounded-full object-cover'}
+          className={'aspect-square w-[30px] rounded-full object-cover ml-1'}
         />
         <AiOutlineCaretDown className="text-sm text-richblack-100" />
       </div>

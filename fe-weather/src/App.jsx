@@ -13,6 +13,7 @@ import Signup from "./pages/Signup";
 import Login from "./pages/Login";
 import ProtectedRoute from "./components/core/auth/ProtectedRoute";
 import OpenRoute from "./components/core/auth/OpenRoute";
+import ShareDevice from "./pages/devices/ShareDevice";
 
 function App() {
   const location = useLocation();
@@ -67,6 +68,12 @@ function App() {
         <Route path="/edit-device/:id" element={
           <ProtectedRoute>
             <EditDevice />
+          </ProtectedRoute>
+        } />
+
+        <Route path="/shared-device/:id" element={
+          <ProtectedRoute>
+            <ShareDevice />
           </ProtectedRoute>
         } />
 
