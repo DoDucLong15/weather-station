@@ -1,24 +1,29 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards } from '@nestjs/common';
 import { DevicesService } from './devices.service';
 import { CreateDeviceDto, UpdateDeviceDto } from './dto/device.dto';
 import { DeviceEntity } from './entities/device.entity';
-import { DeleteResult } from 'typeorm';
+import { Any, DeleteResult } from 'typeorm';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Request } from 'express';
+import { AccessTokenGuard } from 'src/authentication/guard/accessToken.guard';
 
 @ApiTags('DeviceService')
 @ApiBearerAuth()
 @Controller('devices')
+@UseGuards(AccessTokenGuard)
 export class DevicesController {
   constructor(private readonly devicesService: DevicesService) {}
 
   @Post()
-  public async createDevice(@Body() request: CreateDeviceDto): Promise<DeviceEntity> {
-    return await this.devicesService.createDevice(request);
+  public async createDevice(@Body() request: CreateDeviceDto, @Req() req: Request): Promise<DeviceEntity> {
+    // @ts-ignore
+    return await this.devicesService.createDevice(request, req.user['email']);
   }
 
   @Patch()
-  public async updateDevice(@Body() request: UpdateDeviceDto): Promise<DeviceEntity> {
-    return await this.devicesService.updateDevice(request);
+  public async updateDevice(@Body() request: UpdateDeviceDto, @Req() req: Request): Promise<DeviceEntity> {
+    // @ts-ignore
+    return await this.devicesService.updateDevice(request, req.user['email']);
   }
 
   @Get('/:id')
@@ -34,12 +39,20 @@ export class DevicesController {
   }
 
   @Get()
-  public async getDevices(): Promise<DeviceEntity[]> {
-    return await this.devicesService.getDevices();
+  public async getDevices(@Req() req: Request): Promise<DeviceEntity[]> {
+    return await this.devicesService.getDevices({
+      where: [
+        // @ts-ignore
+        {owner: req.user['email']},
+        // @ts-ignore
+        {sharedMails: Any([req.user['email']])}
+      ]
+    });
   }
 
   @Delete('/:id')
-  public async deleteDevice(@Param('id') id: number): Promise<DeleteResult> {
-    return await this.devicesService.deleteDevice(id);
+  public async deleteDevice(@Param('id') id: number, @Req() req: Request): Promise<DeleteResult> {
+    // @ts-ignore
+    return await this.devicesService.deleteDevice(id, req.user['email']);
   }
 }

@@ -12,9 +12,12 @@ export class DevicesService {
     private readonly deviceRepository: Repository<DeviceEntity>
   ){}
 
-  public async createDevice(dto: CreateDeviceDto): Promise<DeviceEntity> {
+  public async createDevice(dto: CreateDeviceDto, owner: string): Promise<DeviceEntity> {
     Logger.debug('Create Device', this.TAG);
-    return await this.deviceRepository.save(dto);
+    return await this.deviceRepository.save({
+      ...dto,
+      owner: owner
+    });
   }
 
   public async getDevice(options: FindOneOptions<DeviceEntity>): Promise<DeviceEntity | null> {
@@ -27,11 +30,12 @@ export class DevicesService {
     return await this.deviceRepository.find(options);
   }
 
-  public async updateDevice(dto: UpdateDeviceDto): Promise<DeviceEntity> {
+  public async updateDevice(dto: UpdateDeviceDto, owner: string): Promise<DeviceEntity> {
     Logger.debug('Update Device', this.TAG);
     const device = await this.getDevice({
       where: {
-        id: dto.id
+        id: dto.id,
+        owner: owner
       }
     });
     if(!device) {
@@ -44,11 +48,12 @@ export class DevicesService {
     return await this.deviceRepository.save(deviceUpdated);
   }
 
-  public async deleteDevice(id: number): Promise<DeleteResult> {
+  public async deleteDevice(id: number, owner: string): Promise<DeleteResult> {
     Logger.debug('Delete Device', this.TAG);
     const device = await this.getDevice({
       where: {
-        id: id
+        id: id,
+        owner: owner
       }
     });
     if(!device) {

@@ -19,4 +19,10 @@ export class DeviceEntity extends AbstractAuditingEntity {
     nullable: true
   })
   stateHistories: StateHistory[];
+
+  @Column({type: 'varchar', nullable: true})
+  owner: string;
+
+  @Column({type: 'simple-array', name: 'shared_mails', nullable: true})
+  sharedMails: string[];
 }

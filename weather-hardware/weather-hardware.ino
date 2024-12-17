@@ -8,7 +8,7 @@ const char* embedId = "1fe78b11-37d2-4d03-a1b0-b70ab2219e6c";
 // Replace with your WiFi credentials and MQTT broker details
 const char* ssid = "Duc Long";
 const char* password = "0378334905";
-const char* mqtt_server = "broker.hivemq.com";
+const char* mqtt_server = "192.168.1.8";
 const char *topic = "ddlong07/iot/weather";
 const int mqtt_port = 1883;
 

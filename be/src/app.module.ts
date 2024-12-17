@@ -8,6 +8,8 @@ import { LogsMiddleware } from './common/middlewares/logs.middleware';
 import { DevicesModule } from './devices/devices.module';
 import { HistoriesModule } from './histories/histories.module';
 import { MqttModule } from './mqtt/mqtt.module';
+import { UsersModule } from './users/users.module';
+import { AuthenticationModule } from './authentication/authentication.module';
 
 const VALID_ENV = ['local', 'development', 'production'];
 
@@ -25,7 +27,9 @@ const environment = process.env.NODE_ENV ?? 'local';
     DatabaseModule,
     DevicesModule,
     HistoriesModule,
-    MqttModule
+    MqttModule,
+    UsersModule,
+    AuthenticationModule
   ],
   controllers: [AppController],
   providers: [AppService],
