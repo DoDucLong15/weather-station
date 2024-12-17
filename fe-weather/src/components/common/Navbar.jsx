@@ -1,12 +1,13 @@
-//@ts-check
-
 import React, { useEffect, useState } from "react";
 import { Link, matchPath, useLocation } from "react-router-dom";
 import weatherStationLogo from "../../assets/logo/logo-cloudy.png";
 import { NavbarLinks } from "../../data/navbar-links";
+import { useSelector } from "react-redux";
+import ProfileDropDown from "../core/auth/ProfileDropDown";
 
 const Navbar = () => {
   const location = useLocation();
+  const { token } = useSelector((state) => state.auth);
 
   // when user click Navbar link then it will hold yellow color
   const matchRoute = (route) => {
@@ -65,18 +66,36 @@ const Navbar = () => {
           ))}
         </ul>
         <div className="flex gap-x-4 items-center">
-          <Link to="/get-started">
-            <button
-              className={` px-[12px] py-[8px] text-richblack-100 rounded-md 
-                                ${
-                                  matchRoute("/get-started")
-                                    ? "border-[2.5px] border-yellow-50"
-                                    : "border border-richblack-700 bg-richblack-800"
-                                } `}
-            >
-              Get started
-            </button>
-          </Link>
+          {token === null && (
+            <Link to="/login">
+              <button
+                className={` px-[12px] py-[8px] text-richblack-100 rounded-md 
+                ${
+                  matchRoute("/login")
+                    ? "border-[2.5px] border-yellow-50"
+                    : "border border-richblack-700 bg-richblack-800"
+                } `}
+              >
+                Log in
+              </button>
+            </Link>
+          )}
+          {token === null && (
+            <Link to="/signup">
+              <button
+                className={` px-[12px] py-[8px] text-richblack-100 rounded-md 
+                              ${
+                                matchRoute("/signup")
+                                  ? "border-[2.5px] border-yellow-50"
+                                  : "border border-richblack-700 bg-richblack-800"
+                              } `}
+              >
+                Sign Up
+              </button>
+            </Link>
+          )}
+
+        {token !== null && <ProfileDropDown />}
         </div>
       </div>
     </nav>

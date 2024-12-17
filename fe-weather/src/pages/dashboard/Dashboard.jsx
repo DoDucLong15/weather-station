@@ -5,9 +5,11 @@ import SearchEngine from "./SearchEngine";
 import "./style.css";
 import toast from "react-hot-toast";
 import Forecast from "./Forecast";
+import { useSelector } from "react-redux";
 
 const Dashboard = () => {
   const [query, setQuery] = useState(null);
+  const { token } = useSelector((state) => state.auth);
 
   const [weather, setWeather] = useState({
     loading: false,
@@ -26,7 +28,7 @@ const Dashboard = () => {
     event.preventDefault();
     setWeather({ ...weather, loading: true });
     if (!query) toast.error("Please select device");
-    await getDashboard(query)
+    await getDashboard(query, token)
       .then((res) => {
         setWeather({
           data: res,
@@ -44,7 +46,7 @@ const Dashboard = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getDashboard(query);
+        const response = await getDashboard(query, token);
         setWeather({ data: response, loading: false, error: false });
       } catch (error) {
         setWeather({ data: {}, loading: false, error: true });
@@ -52,7 +54,7 @@ const Dashboard = () => {
     };
 
     if (query) fetchData();
-  }, [query]);
+  }, [query, token]);
 
   return (
     <div className="body-dashboard">

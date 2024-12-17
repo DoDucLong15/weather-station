@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import { getDevices } from "../../services/operations/deviceApi";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 function SearchEngine({ query, setQuery, search }) {
   const [options, setOptions] = useState([]);
@@ -9,10 +10,11 @@ function SearchEngine({ query, setQuery, search }) {
   const location = useLocation(); 
   const queryParams = new URLSearchParams(location.search); 
   const id = queryParams.get('id');
+  const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await getDevices();
+      const data = await getDevices(token);
       setOptions(
         data.map((row) => ({
           value: row.id,
@@ -21,7 +23,7 @@ function SearchEngine({ query, setQuery, search }) {
       );
     };
     fetch();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if(id) {

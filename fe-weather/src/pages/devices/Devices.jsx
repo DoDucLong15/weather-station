@@ -1,15 +1,16 @@
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import DeviceList from "./DeviceList";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllDevices } from "../../services/operations/deviceApi";
 
 const DevicesHome = () => {
   const dispatch = useDispatch();
+  const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(getAllDevices())
-  }, [])
+    dispatch(getAllDevices(token))
+  }, [token])
   
   return (
     <div className="m-8">

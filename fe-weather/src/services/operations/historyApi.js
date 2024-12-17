@@ -5,9 +5,11 @@ import { historyEndpoints } from "../apis";
 
 const {DASHBOARD, ANALYTICS} = historyEndpoints
 
-export async function getDashboard(deviceId) {
+export async function getDashboard(deviceId, token) {
   try {
-    const response = await apiConnector("GET", DASHBOARD, null, null, {
+    const response = await apiConnector("GET", DASHBOARD, null, {
+      Authorization: `Bearer ${token}`,
+    }, {
       deviceId: Number(deviceId)
     });
     if(!response.data) {
@@ -21,9 +23,11 @@ export async function getDashboard(deviceId) {
   }
 }
 
-export async function getHistory(deviceId, startDate, endDate) {
+export async function getHistory(deviceId, startDate, endDate, token) {
   try {
-    const response = await apiConnector("GET", ANALYTICS, null, null, {
+    const response = await apiConnector("GET", ANALYTICS, null, {
+      Authorization: `Bearer ${token}`,
+    }, {
       deviceId: Number(deviceId),
       startDate: startDate,
       endDate: endDate

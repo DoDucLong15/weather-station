@@ -10,12 +10,14 @@ const {
   CREATE_DEVICE
 } = deviceEndpoints;
 
-export function getAllDevices() {
+export function getAllDevices(token) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-      const response = await apiConnector("GET", GET_DEVICES);
+      const response = await apiConnector("GET", GET_DEVICES, null, {
+        Authorization: `Bearer ${token}`,
+      });
       if(!response.data) {
         throw new Error('Get All Devices failed!');
       }
@@ -29,9 +31,11 @@ export function getAllDevices() {
   }
 }
 
-export async function getDevices() {
+export async function getDevices(token) {
   try {
-    const response = await apiConnector("GET", GET_DEVICES);
+    const response = await apiConnector("GET", GET_DEVICES, null, {
+      Authorization: `Bearer ${token}`,
+    });
     if(!response.data) {
       throw new Error('Get All Devices failed!');
     }
@@ -44,12 +48,14 @@ export async function getDevices() {
   }
 }
 
-export function createDevice(data, navigate) {
+export function createDevice(data, navigate, token) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-      const response = await apiConnector("POST", CREATE_DEVICE, data);
+      const response = await apiConnector("POST", CREATE_DEVICE, data, {
+        Authorization: `Bearer ${token}`,
+      });
       if(!response.data) {
         throw new Error('Create device failed!');
       }
@@ -64,12 +70,14 @@ export function createDevice(data, navigate) {
   }
 }
 
-export function updateDevice(data, navigate) {
+export function updateDevice(data, navigate, token) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-      const response = await apiConnector("PATCH", UPDATE_DEVICE, data);
+      const response = await apiConnector("PATCH", UPDATE_DEVICE, data, {
+        Authorization: `Bearer ${token}`,
+      });
       if(!response.data) {
         throw new Error('Update device failed!');
       }
@@ -84,12 +92,14 @@ export function updateDevice(data, navigate) {
   }
 }
 
-export function deleteDevice(id) {
+export function deleteDevice(id, token) {
   return async (dispatch) => {
     const toastId = toast.loading("Loading...");
     dispatch(setLoading(true));
     try {
-      const response = await apiConnector("DELETE", `${DELETE_DEVICE}/${id}`);
+      const response = await apiConnector("DELETE", `${DELETE_DEVICE}/${id}`, null, {
+        Authorization: `Bearer ${token}`,
+      });
       if(!response.data) {
         throw new Error('Delete device failed!');
       }

@@ -12,3 +12,12 @@ export const historyEndpoints = {
   DASHBOARD: BASE_URL + "/histories/dashboard",
   ANALYTICS: BASE_URL + "/histories/analytics"
 }
+
+export const authEndpoint = {
+  SIGNUP_API: BASE_URL + "/users",
+  LOGIN_API: BASE_URL + "/authentication/signIn",
+}
+
+export const profileEndpoint = {
+  GET_USER_DETAILS_API: BASE_URL + "/authentication/infoToken",
+}

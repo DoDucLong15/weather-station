@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { createDevice } from "../../services/operations/deviceApi";
 
 const AddDevice = () => {
@@ -9,6 +9,7 @@ const AddDevice = () => {
   const [name, setName] = useState("");
   const [location, setLocation] = useState("");
   const [embedId, setEmbedId] = useState("");
+  const { token } = useSelector((state) => state.auth);
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -18,7 +19,7 @@ const AddDevice = () => {
       location: {
         name: location
       }
-    }, navigate))
+    }, navigate, token))
   };
 
   return (
