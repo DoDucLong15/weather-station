@@ -12,7 +12,7 @@ export class AuthenticationController {
   constructor(private readonly authenticationService: AuthenticationService) {}
 
   @Post('signIn')
-  async signIn(@Body() signInDto: SignInDto): Promise<{ access_token: string }> {
+  async signIn(@Body() signInDto: SignInDto): Promise<any> {
     return await this.authenticationService.signIn(signInDto.email, signInDto.password);
   }
 
