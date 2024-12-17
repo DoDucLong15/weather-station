@@ -7,6 +7,7 @@ const EditDevice = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { devices } = useSelector((state) => state.device);
+  const { token } = useSelector((state) => state.auth);
   const { id } = useParams();
   const [selectedDevice, setSeletedDevice] = useState({
     id: null,
@@ -35,7 +36,7 @@ const EditDevice = () => {
         location: {
           name: selectedDevice.location,
         },
-      }, navigate)
+      }, navigate, token)
     );
   };
 

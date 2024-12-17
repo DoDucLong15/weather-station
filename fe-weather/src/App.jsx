@@ -9,6 +9,10 @@ import AddDevice from "./pages/devices/AddDevice";
 import EditDevice from "./pages/devices/EditDevice";
 import Dashboard from "./pages/dashboard/Dashboard";
 import Analytic from "./pages/analytics/Analytic";
+import Signup from "./pages/Signup";
+import Login from "./pages/Login";
+import ProtectedRoute from "./components/core/auth/ProtectedRoute";
+import OpenRoute from "./components/core/auth/OpenRoute";
 
 function App() {
   const location = useLocation();
@@ -50,13 +54,49 @@ function App() {
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/devices" element={<DevicesHome />} />
-        <Route path="/add-device" element={<AddDevice />} />
-        <Route path="/edit-device/:id" element={<EditDevice />} />
+        <Route path="/devices" element={
+          <ProtectedRoute>
+            <DevicesHome />
+          </ProtectedRoute>
+        } />
+        <Route path="/add-device" element={
+          <ProtectedRoute>
+            <AddDevice />
+          </ProtectedRoute>
+        } />
+        <Route path="/edit-device/:id" element={
+          <ProtectedRoute>
+            <EditDevice />
+          </ProtectedRoute>
+        } />
 
-        <Route path="/dashboard" element={<Dashboard />} /> 
+        <Route path="/dashboard" element={
+          <ProtectedRoute>
+            <Dashboard />
+          </ProtectedRoute>
+        } /> 
 
-        <Route path="/analytic" element={<Analytic />} />
+        <Route path="/analytic" element={
+          <ProtectedRoute>
+            <Analytic />
+          </ProtectedRoute>
+        } />
+
+        <Route
+          path="signup" element={
+            <OpenRoute>
+              <Signup />
+            </OpenRoute>
+          }
+        />
+
+        <Route
+          path="login" element={
+            <OpenRoute>
+              <Login />
+            </OpenRoute>
+          }
+        />
       </Routes>
     </div>
   )

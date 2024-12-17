@@ -7,6 +7,7 @@ import Select from "react-select";
 import moment from "moment/moment";
 import toast from "react-hot-toast";
 import { getHistory } from "../../services/operations/historyApi";
+import { useSelector } from "react-redux";
 
 const customStyles = {
   control: (provided, state) => ({
@@ -49,10 +50,11 @@ const Filter = ({setTemperatureData, setHumidityData}) => {
   const location = useLocation(); 
   const queryParams = new URLSearchParams(location.search); 
   const id = queryParams.get('id');
+  const { token } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const fetch = async () => {
-      const data = await getDevices();
+      const data = await getDevices(token);
       setOptions(
         data.map((row) => ({
           value: row.id,
@@ -61,7 +63,7 @@ const Filter = ({setTemperatureData, setHumidityData}) => {
       );
     };
     fetch();
-  }, []);
+  }, [token]);
 
   useEffect(() => {
     if(id) {
@@ -75,8 +77,7 @@ const Filter = ({setTemperatureData, setHumidityData}) => {
     else if(!startDate || !endDate) toast.error('Please select date!');
     else {
       const fetch = async () => {
-        const data = await getHistory(selectedDevice.value, moment(startDate).format('YYYY-MM-DD'), moment(endDate).format('YYYY-MM-DD'));
-        console.log(data);
+        const data = await getHistory(selectedDevice.value, moment(startDate).format('YYYY-MM-DD'), moment(endDate).format('YYYY-MM-DD'), token);
         const temperatureData = {
           labels: data.map((row) => row.time),
           datasets: [
